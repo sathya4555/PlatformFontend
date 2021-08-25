@@ -1,0 +1,9 @@
+.complete{
+    background-color: blue;
+    margin: 20px 0;
+}
+
+.notcomplete{
+    background-color: brown;
+    margin: 20px 0;
+}
