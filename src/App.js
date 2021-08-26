@@ -16,14 +16,17 @@ import { App_add } from './component/App_add';
 import { Addfeature } from './component/Addfeature';
 import { UpdateApp } from './component/UpdateApp';
 import { UpdateFeature } from './component/UpdateFeature';
+import { UpdateClient } from './component/UpdateClient';
 
 let socket = io.connect('https://localhost:4000');
 function App() {
-
+  const [getClients, setgetClients] = useState('')
   const [getFeature, setgetFeature] = useState('')
 const [getApps, setgetApps] = useState('')
   const [getRoles, setgetRoles] = useState('')
   const [name, setName] = useState('');
+
+  const [getAdmin, setgetAdmin] = useState('')
   useEffect(() => {
     (
       async () => {
@@ -52,6 +55,39 @@ const [getApps, setgetApps] = useState('')
 
     }}
     getRoles()
+  }, [])
+
+  useEffect(() => {
+    async function getAdmins() {
+    try {
+     
+        const reqUrl3 = 'http://localhost:4003/component/getadmin'
+        const response13 = await fetch(reqUrl3)
+        const resJSON3 = await response13.json()
+        setgetAdmin(resJSON3)
+      
+    } catch {
+
+    }}
+    getAdmins()
+  }, [])
+
+
+
+  
+  useEffect(() => {
+    async function getClient() {
+    try {
+     
+        const reqUrl2 = 'http://localhost:4003/component/getClient'
+        const response12 = await fetch(reqUrl2)
+        const resJSON2 = await response12.json()
+        setgetClients(resJSON2)
+      
+    } catch {
+
+    }}
+    getClient()
   }, [])
 
 
@@ -132,12 +168,13 @@ useEffect(() => {
           <Route exact path="/register" component={Register} />
           <Route exact path="/admin/upload" component={UploadPage} />
           <Route exact path="/addclient" component={() => <Adminfun name={name} />} />
-          <Route exact path="/admin" component={() => <AddClient name={name} getRoles={getRoles} />} />
+          <Route exact path="/admin" component={() => <AddClient name={name} getRoles={getRoles} getAdmin={getAdmin} />} />
           <Route exact path="/viewrole" component={() => <GetRoles name={name} getRoles={getRoles} />} />
           <Route exact path="/addapp" component={() => <App_add name={name} getRoles={getRoles} />} />
-          <Route exact path="/addfeature" component={() => <Addfeature name={name} getRoles={getRoles} />} />
+          <Route exact path="/addfeature" component={() => <Addfeature name={name} getRoles={getRoles} getApps={getApps}/>} />
           <Route exact path="/updateapp" component={() => <UpdateApp name={name} getApps={getApps} />} />
           <Route exact path="/updatefeature" component={() => <UpdateFeature name={name} getFeature={getFeature} />} />
+          <Route exact path="/updateclient" component={() => <UpdateClient name={name} getClients={getClients} />} />
         </main>
       </BrowserRouter>
     </div>

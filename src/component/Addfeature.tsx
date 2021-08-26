@@ -9,7 +9,7 @@ const [featuredesciption, setrole] = useState('')
 const submit = async (e: SyntheticEvent) => {
     e.preventDefault();
 const adminname= props.name
-const appid=212
+const app=15
 SocketId = sessionStorage.getItem('socket_id')
     const response = await fetch('https://localhost:4000/STUDENTCOURSE_SERVICE/FEATURE', {
         method: 'POST',
@@ -20,7 +20,7 @@ SocketId = sessionStorage.getItem('socket_id')
              adminname,
              featuredesciption,
             SocketId,
-            appid
+            app
         })
           
     }).then(response => response.json())

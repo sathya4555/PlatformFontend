@@ -35,9 +35,19 @@ console.log('inside logout function');
             <ul className="navbar-nav me-auto mb-2 mb-md-0">
 
 
-                <li className="nav-item active">
+                {/* <li className="nav-item active">
                     <Link to="/admin" className="nav-link" >Add Client</Link>
-                </li>
+                </li> */}
+                <NavDropdown
+                        id="nav-dropdown-dark-example"
+                        title="Client"
+                        menuVariant="dark"
+                    >
+                        <NavDropdown.Item >    <Link to="/admin" className="nav-link" >Add Client</Link></NavDropdown.Item>
+                        <NavDropdown.Item ><Link to="/updateclient" className="nav-link" >Update Client</Link></NavDropdown.Item>
+                        <NavDropdown.Divider />
+                        {/* <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item> */}
+                    </NavDropdown>
                 <li>
                     <NavDropdown
                         id="nav-dropdown-dark-example"
