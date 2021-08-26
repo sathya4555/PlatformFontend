@@ -2,6 +2,7 @@
 import React, { SyntheticEvent, useState } from 'react'
 import Table from 'react-bootstrap/Table'
 import { Button } from 'react-bootstrap';
+import { DeleteSweepSharp } from '@material-ui/icons';
 export const UpdateApp = (props: {name: string,getApps:any[] }) => {
     // const [add, setadd] = useState('')
     // const [readonly, setreadonly] = useState('')
@@ -33,7 +34,7 @@ export const UpdateApp = (props: {name: string,getApps:any[] }) => {
         ;
         
     
-        e.preventDefault();
+      //  e.preventDefault();
       const adminname= props.name
       let SocketId = sessionStorage.getItem('socket_id')
         const response = await fetch('https://localhost:4000/STUDENTCOURSE_SERVICE/APP/6', {
@@ -100,6 +101,8 @@ export const UpdateApp = (props: {name: string,getApps:any[] }) => {
         Delete
       </label>
     </div> */}
+
+    
         <button className="w-100 btn btn-lg btn-primary" type="submit">Submit</button>
         </form>
     )
@@ -117,6 +120,24 @@ export const UpdateApp = (props: {name: string,getApps:any[] }) => {
      console.log('Methodname = ',methodname1)
      
     }
+
+    const  DeleteApp = async (id:any) =>{
+        console.log(id);
+
+        let SocketId = sessionStorage.getItem('socket_id')
+        const response = await fetch('https://localhost:4000/STUDENTCOURSE_SERVICE/APP/6', {
+            method: 'DELETE',
+            headers: {'Content-Type': 'application/json'},
+            //credentials: 'include',
+            body: JSON.stringify({
+              id,
+              SocketId
+
+    
+            })
+        });
+        
+    }
     
       return (
         <div>
@@ -128,8 +149,9 @@ export const UpdateApp = (props: {name: string,getApps:any[] }) => {
         <thead>
           <tr>
           <th>Id</th>
-            <th>appname</th>
-            <th>appdesciption</th>
+            <th>App Name</th>
+            <th>Admin Name</th>
+            <th>App Description</th>
     
           </tr>
         </thead>
@@ -138,9 +160,15 @@ export const UpdateApp = (props: {name: string,getApps:any[] }) => {
        <tr>
              <td>{row.id}</td>
             <td>{row.appname}</td>
-            {/* <td>{row.adminname}</td> */}
+            <td>{(props.name === row.adminname? "You" : row.adminname)}</td>
             <td >{row.appdesciption}</td>
-            <td> <Button key={row.methodname} onClick={()=>editRole(row)}> Edit</Button></td>
+            {/* <td> <Button key={row.methodname} onClick={()=>editRole(row.id)}>Edit</Button></td> */}
+          
+            <td>{(props.name === row.adminname? <Button key={row.methodname} onClick={()=>editRole(row.id)}> Edit</Button> : "")}</td>
+            {/* <td><Button type="button" onClick={()=>DeleteApp(row.id)}  className="btn btn-danger">Delete</Button></td> */}
+        <td>{(props.name === row.adminname? <Button type="button" onClick={()=>DeleteApp(row.id)}  className="btn btn-danger">Delete</Button> : "")}</td>
+         
+         
           </tr>
             ))}
         </tbody>

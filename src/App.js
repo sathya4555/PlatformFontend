@@ -15,9 +15,12 @@ import  io  from 'socket.io-client';
 import { App_add } from './component/App_add';
 import { Addfeature } from './component/Addfeature';
 import { UpdateApp } from './component/UpdateApp';
+import { UpdateFeature } from './component/UpdateFeature';
 
 let socket = io.connect('https://localhost:4000');
 function App() {
+
+  const [getFeature, setgetFeature] = useState('')
 const [getApps, setgetApps] = useState('')
   const [getRoles, setgetRoles] = useState('')
   const [name, setName] = useState('');
@@ -65,6 +68,22 @@ const [getApps, setgetApps] = useState('')
 
     }}
     getApps()
+  }, [])
+
+  
+  useEffect(() => {
+    async function getFeatures() {
+    try {
+     
+        const reqUrl = 'http://localhost:4003/app-data/getfeatures'
+        const response1 = await fetch(reqUrl)
+        const resJSON = await response1.json()
+        setgetFeature(resJSON)
+      
+    } catch {
+
+    }}
+    getFeatures()
   }, [])
 
 useEffect(() => {
@@ -118,6 +137,7 @@ useEffect(() => {
           <Route exact path="/addapp" component={() => <App_add name={name} getRoles={getRoles} />} />
           <Route exact path="/addfeature" component={() => <Addfeature name={name} getRoles={getRoles} />} />
           <Route exact path="/updateapp" component={() => <UpdateApp name={name} getApps={getApps} />} />
+          <Route exact path="/updatefeature" component={() => <UpdateFeature name={name} getFeature={getFeature} />} />
         </main>
       </BrowserRouter>
     </div>

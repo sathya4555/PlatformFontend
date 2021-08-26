@@ -67,6 +67,25 @@ const [editRolename, seteditRolename] = useState('')
     });
   }
 
+  
+  const  DeleteApp = async (id:any) =>{
+    console.log(id);
+
+    let SocketId = sessionStorage.getItem('socket_id')
+    const response = await fetch('https://localhost:4000/STUDENTCOURSE_SERVICE/ROLE/6', {
+        method: 'DELETE',
+        headers: {'Content-Type': 'application/json'},
+        //credentials: 'include',
+        body: JSON.stringify({
+          id,
+          SocketId
+
+
+        })
+    });
+    
+}
+
 
   
 const close=() =>{
@@ -144,6 +163,7 @@ const [menu, setmenu] = useState(0)
       <tr>
       <th>Id</th>
         <th>Role</th>
+        <th>Admin Name</th>
         <th>Method</th>
 
       </tr>
@@ -153,9 +173,13 @@ const [menu, setmenu] = useState(0)
    <tr>
          <td>{row.id}</td>
         <td>{row.rolename}</td>
-        {/* <td>{row.adminname}</td> */}
+        <td>{(props.name === row.adminname? "You" : row.adminname)}</td>
         <td >{row.methodname}</td>
-        <td> <Button key={row.methodname} onClick={()=>editRole(row)}> Edit</Button></td>
+        {/* <td> <Button key={row.methodname} onClick={()=>editRole(row)}> Edit</Button></td> */}
+        <td>{(props.name === row.adminname? <Button key={row.methodname} onClick={()=>editRole(row)}> Edit</Button> : "")}</td>
+        {/* <td><Button type="button" onClick={()=>DeleteApp(row.id)}  className="btn btn-danger">Delete</Button></td> */}
+        <td>{(props.name === row.adminname? <Button type="button" onClick={()=>DeleteApp(row.id)}  className="btn btn-danger">Delete</Button> : "")}</td>
+     
       </tr>
         ))}
     </tbody>

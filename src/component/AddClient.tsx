@@ -11,7 +11,7 @@ var SocketId
     // const [adminname, setadminname] = useState('')
     const [role, setrole] = useState('')
     const submit = async (e: SyntheticEvent) => {
-        e.preventDefault();
+       // e.preventDefault();
 const adminname= props.name
  SocketId = sessionStorage.getItem('socket_id')
         const response = await fetch('https://localhost:4000/STUDENTCOURSE_SERVICE/STUDENT', {

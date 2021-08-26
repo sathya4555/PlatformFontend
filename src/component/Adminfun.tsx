@@ -12,7 +12,7 @@ const [setdelete, setsetdelete] = useState('')
 
 
     const submit = async (e: SyntheticEvent) => {
-        e.preventDefault();
+         e.preventDefault();
 const adminname= props.name
  console.log(adminname);
 //  console.log(role);

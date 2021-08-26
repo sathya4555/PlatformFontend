@@ -63,6 +63,7 @@ console.log('inside logout function');
                        
                         <NavDropdown.Divider />
                         <NavDropdown.Item ><Link to="/addfeature" className="nav-link" >Add App feature</Link></NavDropdown.Item>
+                        <NavDropdown.Item ><Link to="/updatefeature" className="nav-link" >Update App feature</Link></NavDropdown.Item>
                     </NavDropdown>
 
                 </li>
